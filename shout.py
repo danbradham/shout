@@ -83,7 +83,7 @@ class Message(MetaMetaMsg):
 
     @classmethod
     def rem_listener(cls, fn):
-        for room in cls.listeners.itervalues():
+        for room in cls.listeners.values():
             room.discard(fn)
         return cls
 

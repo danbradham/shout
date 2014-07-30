@@ -1,6 +1,7 @@
-============================
-Shout! Loud Python Messaging
-============================
+======
+Shout!
+======
+*Loud* python messaging.
 
 .. image:: https://travis-ci.org/danbradham/shout.svg?branch=master
   :target: https://travis-ci.org/danbradham/shout
