@@ -23,7 +23,7 @@ Shout is a single module providing simple messaging vocabulary for small applica
 
     @hears(WhoAreYou)
     def dusty_bottoms():
-        return "the three..."
+        return "The threeee..."
 
 
     @hears(WhoAreYou)
@@ -33,6 +33,8 @@ Shout is a single module providing simple messaging vocabulary for small applica
 
     msg = shout(WhoAreYou)
     print("".join(msg.results))
+
+    # We are...The threeee...Amigos!!
 
 
 Why Shout
