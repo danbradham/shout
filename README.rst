@@ -7,6 +7,7 @@ Shout!
 Loud python messaging! Shout is a single module providing elegant messaging syntax for small applications. Take a look...
 
 ::
+
     from shout import Message, hears, shout
 
     class Greeting(Message):
