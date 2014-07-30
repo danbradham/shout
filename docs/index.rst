@@ -28,8 +28,8 @@ Shout is a single module providing simple messaging vocabulary for small applica
     # ['Hello Hello'] True
 
 
-Why you'd use Shout
-===================
+Why Shout
+=========
 
 * Decoupling of a GUI and it's behavior
 
