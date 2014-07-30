@@ -31,7 +31,7 @@ class A(HasEars):
 
 class B(HasEars):
 
-    @hears(Greet, inside=("B", "C"))
+    @hears(Greet, rooms=("B", "C"))
     def b_class_method(self):
         return "Hi from b!"
 
@@ -40,7 +40,7 @@ class B(HasEars):
         return self.__class__
 
 
-@hears(Greet, inside=("Unbound",))
+@hears(Greet, rooms=("Unbound",))
 def module_level_fn():
     return "Hi from module_level_fn!"
 
@@ -59,8 +59,8 @@ class Test_Shout(object):
 
     @classmethod
     def setup_class(cls):
-        a = A()
-        b = B()
+        cls.a = A()
+        cls.b = B()
 
     def test_shout(self):
         msg = shout(Greet)
@@ -68,14 +68,14 @@ class Test_Shout(object):
 
 
     def test_room(self):
-        msg = shout(Greet, to="Unbound")
+        msg = shout(Greet, room="Unbound")
         assert msg.results == ["Hi from module_level_fn!"]
 
 
     def test_rooms(self):
 
-        msg_b = shout(Greet, to="B")
-        msg_c = shout(Greet, to="C")
+        msg_b = shout(Greet, room="B")
+        msg_c = shout(Greet, room="C")
         assert msg_b.results == ["Hi from b!"]
         assert msg_c.results == ["Hi from b!"]
 

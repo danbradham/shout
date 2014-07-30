@@ -10,15 +10,19 @@ Loud python messaging! Shout is a single module providing elegant messaging synt
 
     from shout import Message, hears, shout
 
+
     class Greeting(Message):
         pass
 
+
     @hears(Greeting)
     def listener_a(msg):
-        print("listener_a heard: ", msg)
+        print("listener_a heard:", msg)
+
 
     @hears(Greeting)
     def listener_b(msg):
-        print("listener_b heard: ", msg)
+        print("listener_b heard:", msg)
 
-    shout(Greeting, "Hey There!", to="A")
+
+    shout(Greeting, "Hey There!")

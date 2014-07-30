@@ -54,3 +54,6 @@ target/
 
 # Sublime Text
 .sublime*
+
+# Temporary Files
+temp.py
