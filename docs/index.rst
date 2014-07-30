@@ -6,7 +6,7 @@
 ========
  Shout!
 ========
-*Loud* Python messaging.
+**Loud Python messaging.**
 
 Shout is a single module providing simple messaging vocabulary for small applications. Shout is NOT a distributed messaging framework.
 
