@@ -140,7 +140,7 @@ def hears(*args, **kwargs):
         fn.msg_types = args
         fn.rooms = kwargs.get("rooms", (ROOM_DEFL,))
 
-        if isinstance(fn.rooms, basestring):
+        if isinstance(fn.rooms, str):
             fn.rooms = (fn.rooms,)
 
         argspec = inspect.getargspec(fn)
