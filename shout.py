@@ -16,7 +16,6 @@ __all__ = ["HasEars", "Message", "hears", "shout"]
 import inspect
 from collections import Sequence, defaultdict
 import sys
-from six import add_metaclass
 
 
 ROOM_DEFL = "void"
@@ -33,8 +32,9 @@ class MetaMsg(type):
 
         return cls
 
-@add_metaclass(MetaMsg)
-class Message(object):
+MetaMetaMsg = MetaMsg(str("MetaMetaMsg"), (), {}) # 2n3 compatible metaclass
+
+class Message(MetaMetaMsg):
     '''Message instances store args and kwargs to shout to their listeners.
     When an instances shout method is called these args and kwargs are passed
     to all the listeners that hear Messages in the appropriate rooms. Rooms
