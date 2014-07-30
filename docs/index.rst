@@ -1,14 +1,12 @@
-========
- Shout!
-========
---------------------------
- Loud Python messaging.
---------------------------
 .. image:: https://travis-ci.org/danbradham/shout.svg?branch=master
   :target: https://travis-ci.org/danbradham/shout
 
 .. image:: https://coveralls.io/repos/danbradham/shout/badge.png?branch=master
   :target: https://coveralls.io/r/danbradham/shout?branch=master
+========
+ Shout!
+========
+*Loud* Python messaging.
 
 Shout is a single module providing simple messaging vocabulary for small applications. Shout is NOT a distributed messaging framework.
 
@@ -16,25 +14,20 @@ Shout is a single module providing simple messaging vocabulary for small applica
 
     from shout import Message, hears, shout
 
-
     class WhoAreYou(Message):
         pass
-
 
     @hears(WhoAreYou)
     def lucky_day():
         return "We are..."
 
-
     @hears(WhoAreYou)
     def dusty_bottoms():
         return "The threeee..."
 
-
     @hears(WhoAreYou)
     def ned_nederlander():
         return "Amigos!!"
-
 
     msg = shout(WhoAreYou)
     print("".join(msg.results))
