@@ -12,19 +12,24 @@ Shout is a single module providing simple messaging vocabulary for small applica
     from shout import Message, hears, shout
 
 
-    class Greeting(Message):
+    class WhoAreYou(Message):
         pass
 
 
-    @hears(Greeting)
-    def responder(msg):
-        return '{0} {0}!'.format(msg)
+    @hears(WhoAreYou)
+    def lucky_day():
+        return "We are..."
 
+    @hears(WhoAreYou)
+    def dusty_bottoms():
+        return "the three..."
 
-    msg = shout(Greeting, 'Hello')
-    print(msg.results, msg.success)
+    @hears(WhoAreYou)
+    def ned_nederlander():
+        return "Amigos!!"
 
-    # ['Hello Hello'] True
+    msg = shout(WhoAreYou)
+    print("".join(msg.results))
 
 
 Why Shout
