@@ -8,8 +8,11 @@ from __future__ import unicode_literals
 
 
 __author__ = "Dan Bradham"
-__version__ = "0.1.0"
+__email__ = "danieldbradham@gmail.com"
+__version__ = "0.1.1"
 __license__ = "MIT"
+__description__ = "Loud python messaging!"
+__url__ = "http://github.com/danbradham/shout"
 __all__ = ["HasEars", "Message", "hears", "shout"]
 
 
@@ -35,20 +38,10 @@ class MetaMsg(type):
 MetaMetaMsg = MetaMsg(str("MetaMetaMsg"), (), {}) # 2n3 compatible metaclass
 
 class Message(MetaMetaMsg):
-    '''Message instances store args and kwargs to shout to their listeners.
-    When an instances shout method is called these args and kwargs are passed
-    to all the listeners that hear Messages in the appropriate rooms. Rooms
-    are nothing more than strings used as keys in a Message object's
-    listeners     dictionary. Return values of the listeners are collected in
-    the instance's results list. If all listeners run successfully the
-    instance's success attribute is set to True. If an Exception is raised
-    during a shout, the shout is stopped and the Execution is bound to the
-    message's exc attribute.
+    ''':class:`Message` instances store args and kwargs to shout to their listeners. Listeners are any function or class method decorated with :func:`hears`. When :meth:`shout` is called these args and kwargs are passed to all the listeners that hear the appropriate :class:`Message` objects in the appropriate *rooms*. *Rooms* are nothing more than strings used as keys in a :class:`Message` object's listeners dictionary. Return values of the listeners are collected in the :class:`Message` instance results list. If all listeners run successfully the :class:`Message` instance success attribute is set to True. If an :class:`Exception` is raised during a shout, the shout is stopped and the Exception is bound to the :class:`Message` instance exc attribute.
 
     :param args: Arguments to shout
     :param kwargs: Keyword Arguments to shout
-    :method shout: Passes args and kwargs to all appropriate listeners
-    :classmethod new: Dynamically creates a new Message object.
     '''
 
     def __init__(self, *args, **kwargs):
@@ -64,12 +57,13 @@ class Message(MetaMetaMsg):
         self.success = False
 
     def shout(self):
+        '''Sends the :class:`Message` instance args and kwargs to the appropriate listeners.'''
 
         listeners = self.listeners[self.room]
         if not listeners:
             self.exc = UserWarning(
                 "Nobody is listening in room: {0}".format(self.room))
-            return
+            return self
 
         for listener in listeners:
             try:
@@ -77,8 +71,9 @@ class Message(MetaMetaMsg):
                 self.results.append(result)
             except:
                 self.exc = sys.exc_info()[1]
-                return
+                return self
         self.success = True
+        return self
 
     @classmethod
     def add_listener(cls, fn):
@@ -93,8 +88,8 @@ class Message(MetaMetaMsg):
         return cls
 
     @staticmethod
-    def new(name):
-        '''Dynamically create a new Message object.
+    def create(name):
+        '''Dynamically create a new :class:`Message` object.
 
         :param name: The __class__.__name__ to use.
         '''
@@ -103,8 +98,7 @@ class Message(MetaMetaMsg):
 
 
 class HasEars(object):
-    '''A Mixin baseclass that automatically takes methods decorated with hears
-    and adds them as listeners for the specified Messages.
+    '''A mixin class that automatically takes instance methods decorated with :func:`hears` and adds them as listeners to the specified :class:`Message` objects.
     '''
 
     def __init__(self, *args, **kwargs):
@@ -134,12 +128,10 @@ def typecheck_args(args):
 
 
 def hears(*args, **kwargs):
-    '''Wrap a function or Node method to hear Messages. Pass Node names to the
-    rooms keyword to limit the method to hear only Messages from certain
-    Node objects.
+    '''A decorator that marks a function or :class:`HasEars` method to hear :class:`Message` objects inside specific rooms.
 
-    :param args: The type of Messages this function should listen to.
-    :param rooms: A tuple containing the rooms the function listens to.'''
+    :param args: A tuple of :class:`Message` objects to hear.
+    :param rooms: A tuple of room names to listen to.'''
     def wrapper(fn):
 
         typecheck_args(args) # Make sure all our args are Message Subclasses
@@ -161,10 +153,12 @@ def hears(*args, **kwargs):
 
 
 def shout(msg_type, *args, **kwargs):
-    '''A convenience method for shouting Message instances.
+    '''A more grammatically pleasant way to shout a :class:`Message`.
 
-    :param msg_type: The type of Message to shout.
+    shout(Message, "Hello", room="A") <==> Message("Hello", room="A").shout()
+
+    :param msg_type: The type of :class:`Message` to shout.
+    :param args: The args to pass to the :class:`Message`.
+    :param kwargs: The kwargs to pass to the :class:`Message`.
     :param room: The room to shout into.'''
-    msg = msg_type(*args, **kwargs)
-    msg.shout()
-    return msg
+    return msg_type(*args, **kwargs).shout()

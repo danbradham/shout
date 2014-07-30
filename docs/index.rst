@@ -1,5 +1,4 @@
 .. highlight:: python
-.. currentmodule:: shout
 
 ======
 Shout!
@@ -39,6 +38,9 @@ Why Shout
 
 * It's easy and fun to use.
 
+
+API Documentation
+=================
 
 .. toctree::
    :maxdepth: 2

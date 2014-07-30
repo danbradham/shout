@@ -1,2 +1,24 @@
-.. automodule:: shout
+.. _api:
+.. currentmodule:: shout
+
+Messages
+========
+
+.. autoclass:: shout.Message
     :members:
+
+Shout at the top of your lungs!
+===============================
+
+.. autofunction:: shout.shout
+
+Who is Listening?
+=================
+
+.. autofunction:: shout.hears
+
+HasEars Mixin
+-------------
+Enables :func:`hears` decorator to be used on class methods.
+
+.. autoclass:: shout.HasEars
