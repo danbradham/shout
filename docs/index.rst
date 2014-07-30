@@ -18,14 +18,14 @@ Shout is a single module providing simple messaging vocabulary for small applica
 
 
     @hears(Greeting)
-    def listener_a(msg):
-        return 'listener_a heard: {0}'.format(msg)
+    def responder(msg):
+        return '{0} {0}!'.format(msg)
 
 
     msg = shout(Greeting, 'Hello')
     print(msg.results, msg.success)
 
-    # ['listener_a heard: Hello'] True
+    # ['Hello Hello'] True
 
 
 Why you'd use Shout
