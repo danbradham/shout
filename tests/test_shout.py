@@ -112,11 +112,11 @@ class Test_Shout(object):
     def test_dynamic_message_creation(self):
         NewMessage = Message.create("NewMessage")
 
-        @hears(NewMessage)
+        @hears(NewMessage, rooms="NewRoom")
         def nm_listener():
             return True
 
-        msg = shout(NewMessage)
+        msg = shout(NewMessage, room="NewRoom")
         assert msg.results == [True]
 
     def test_typecheck_args(self):
