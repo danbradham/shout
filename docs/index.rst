@@ -1,12 +1,15 @@
+========
+ Shout!
+========
+--------------------------
+ Loud Python messaging.
+--------------------------
 .. image:: https://travis-ci.org/danbradham/shout.svg?branch=master
   :target: https://travis-ci.org/danbradham/shout
 
 .. image:: https://coveralls.io/repos/danbradham/shout/badge.png?branch=master
   :target: https://coveralls.io/r/danbradham/shout?branch=master
-======
-Shout!
-======
-*Loud* Python messaging.
+
 Shout is a single module providing simple messaging vocabulary for small applications. Shout is NOT a distributed messaging framework.
 
 ::
