@@ -83,8 +83,8 @@ class Message(MetaMetaMsg):
 
     @classmethod
     def rem_listener(cls, fn):
-        for room_set in cls.listeners.itervalues():
-            cls.listeners.discard(fn)
+        for room in cls.listeners.itervalues():
+            room.discard(fn)
         return cls
 
     @staticmethod
@@ -116,7 +116,7 @@ def typecheck_args(args):
     '''Ensures all args are of type Message.'''
     if isinstance(args, Sequence):
         for item in args:
-            if not issubclass(item, Message):
+            if not item in Message.__subclasses__():
                 raise TypeError(
                     "All arguments passed to hears must be"
                     " subclasses of Message")
@@ -149,6 +149,7 @@ def hears(*args, **kwargs):
 
         for msg_type in fn.msg_types:
             msg_type.add_listener(fn)
+        return fn
     return wrapper
 
 

@@ -2,55 +2,60 @@ from shout import Message, HasEars, hears, shout, typecheck_args
 from nose.tools import *
 
 
-class GetClasses(Message):
+class MsgResults(Message):
     pass
 
 
-class GetException(Message):
+class MsgException(Message):
     pass
 
 
-class Greet(Message):
+class Msg(Message):
     pass
 
 
-class SendArgsKwargs(Message):
+class MsgArgsKwargs(Message):
     pass
 
 
 class A(HasEars):
 
-    @hears(Greet)
+    @hears(Msg)
     def a_class_method(self):
         return "Hi from a!"
 
-    @hears(GetClasses)
+    @hears(MsgResults)
     def give_class(self):
         return self.__class__
 
 
 class B(HasEars):
 
-    @hears(Greet, rooms=("B", "C"))
+    @hears(Msg, rooms=("B", "C"))
     def b_class_method(self):
         return "Hi from b!"
 
-    @hears(GetClasses)
+    @hears(MsgResults)
     def give_class(self):
         return self.__class__
 
 
-@hears(Greet, rooms=("Unbound",))
+@hears(Msg, rooms=("Unbound",))
 def module_level_fn():
     return "Hi from module_level_fn!"
 
 
-@hears(SendArgsKwargs)
+@hears(Msg, rooms=("RemoveMe",))
+def module_level_fn_for_removal():
+    return "Hi from module_level_fn!"
+
+
+@hears(MsgArgsKwargs)
 def module_level_fn_args_kwargs(*args, **kwargs):
     return args, kwargs
 
 
-@hears(GetException)
+@hears(MsgException)
 def module_level_fn_raises_exc(*args, **kwargs):
     raise AttributeError("Bad error!")
 
@@ -63,46 +68,72 @@ class Test_Shout(object):
         cls.b = B()
 
     def test_shout(self):
-        msg = shout(Greet)
+        msg = shout(Msg)
         assert msg.results == ['Hi from a!']
 
 
     def test_room(self):
-        msg = shout(Greet, room="Unbound")
+        msg = shout(Msg, room="Unbound")
         assert msg.results == ["Hi from module_level_fn!"]
 
 
     def test_rooms(self):
 
-        msg_b = shout(Greet, room="B")
-        msg_c = shout(Greet, room="C")
+        msg_b = shout(Msg, room="B")
+        msg_c = shout(Msg, room="C")
         assert msg_b.results == ["Hi from b!"]
         assert msg_c.results == ["Hi from b!"]
 
 
     def test_exc(self):
-        msg_e = shout(GetException)
+        msg_e = shout(MsgException)
         assert isinstance(msg_e.exc, AttributeError)
 
 
     def test_results(self):
-        msg = shout(GetClasses)
+        msg = shout(MsgResults)
         assert A in msg.results
         assert B in msg.results
 
 
     def test_args_kwargs(self):
-        msg = shout(SendArgsKwargs, "oh yes", kwarg="right")
+        msg = shout(MsgArgsKwargs, "oh yes", kwarg="right")
         assert (("oh yes", ), {"kwarg": "right"}) in msg.results
 
+    def test_no_listeners(self):
+        msg = shout(Msg, room="XYZ")
+        assert isinstance(msg.exc, UserWarning)
 
-    @raises(TypeError)
+    def test_rem_listener(self):
+        assert module_level_fn_for_removal in Msg.listeners["RemoveMe"]
+        Msg.rem_listener(module_level_fn_for_removal)
+        assert (not Msg.listeners["RemoveMe"])
+
+    def test_dynamic_message_creation(self):
+        NewMessage = Message.create("NewMessage")
+
+        @hears(NewMessage)
+        def nm_listener():
+            return True
+
+        msg = shout(NewMessage)
+        assert msg.results == [True]
+
     def test_typecheck_args(self):
-        args = (Greet, GetClasses, SendArgsKwargs)
+        args = (Msg, MsgResults, MsgArgsKwargs)
         assert typecheck_args(args)
 
-        args = ("A", Greet)
+    @raises(TypeError)
+    def test_typecheck_mixed(self):
+        args = ("A", Msg)
         typecheck_args(args)
 
+    @raises(TypeError)
+    def test_typecheck_str(self):
         args = "A"
+        typecheck_args(args)
+
+    @raises(TypeError)
+    def test_typecheck_not_seq(self):
+        args = 1
         typecheck_args(args)
