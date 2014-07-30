@@ -20,13 +20,16 @@ Shout is a single module providing simple messaging vocabulary for small applica
     def lucky_day():
         return "We are..."
 
+
     @hears(WhoAreYou)
     def dusty_bottoms():
         return "the three..."
 
+
     @hears(WhoAreYou)
     def ned_nederlander():
         return "Amigos!!"
+
 
     msg = shout(WhoAreYou)
     print("".join(msg.results))
