@@ -19,10 +19,13 @@ Shout is a single module providing simple messaging vocabulary for small applica
 
     @hears(Greeting)
     def listener_a(msg):
-        print("listener_a heard:", msg)
+        return 'listener_a heard: {0}'.format(msg)
 
 
-    msg = shout(Greeting, "Hello")
+    msg = shout(Greeting, 'Hello')
+    print(msg.results, msg.success)
+
+    # ['listener_a heard: Hello'] True
 
 
 Why you'd use Shout
@@ -32,9 +35,9 @@ Why you'd use Shout
 
   * PySide/PyQt signals are bound to widgets making it harder to decouple widgets. You have to explicitly connect each widget's signals with their slots which could live deep in a hierarchy of widgets.
 
-  * Shout Messages are classes themselves, existing outside the scope of any individual widgets. Making them usable anywhere and everywhere in your app.
+  * Shout Messages are classes themselves, readily available to all other objects in their scope. Shout from inside, outside, top, or bottom of a widget hierarchy, Messages will still get to where they need to go!
 
-* It's easy and fun to use and incorporates well existing code.
+* It's easy and fun to use.
 
 
 .. toctree::
