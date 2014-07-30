@@ -1,9 +1,17 @@
-.. highlight:: python
-
 ======
 Shout!
 ======
 *Loud* python messaging!
+
+.. image:: https://travis-ci.org/danbradham/shout.svg?branch=master
+  :target: https://travis-ci.org/danbradham/shout
+  :alt: build status
+  :align left:
+
+.. image:: https://coveralls.io/repos/danbradham/shout/badge.png?branch=master
+  :target: https://coveralls.io/r/danbradham/shout?branch=master
+  :alt: coverage status
+  :align: left
 
 Shout is a single module providing simple messaging vocabulary for small applications. Shout is NOT a distributed messaging framework.
 
