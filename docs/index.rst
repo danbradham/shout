@@ -1,7 +1,7 @@
 ======
 Shout!
 ======
-*Loud* python messaging.
+*Loud* Python messaging.
 
 .. image:: https://travis-ci.org/danbradham/shout.svg?branch=master
   :target: https://travis-ci.org/danbradham/shout
