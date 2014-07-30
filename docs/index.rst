@@ -43,3 +43,4 @@ Why you'd use Shout
 .. toctree::
    :maxdepth: 2
 
+   api

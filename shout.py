@@ -1,7 +1,7 @@
 '''
+=====
 Shout
------
-A loud messaging framework.
+=====
 '''
 
 from __future__ import unicode_literals
