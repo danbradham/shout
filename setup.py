@@ -24,13 +24,10 @@ setup(
     author=shout.__author__,
     author_email=shout.__email__,
     url=shout.__url__,
-    include_package_data=True,
     license=license,
-    zip_safe=False,
     package_data={"": ["LICENSE"]},
     packages=[],
     py_modules=['shout'],
-    install_requires = [],
     classifiers=(
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
