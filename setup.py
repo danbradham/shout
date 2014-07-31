@@ -13,9 +13,6 @@ if sys.argv[-1] == 'cheeseit!':
 with open("README.rst") as f:
     readme = f.read()
 
-with open("LICENSE") as f:
-    license = f.read()
-
 setup(
     name="pyshout",
     version=shout.__version__,
@@ -24,7 +21,7 @@ setup(
     author=shout.__author__,
     author_email=shout.__email__,
     url=shout.__url__,
-    license=license,
+    license="MIT",
     include_package_data= True,
     package_data={"": ["LICENSE", "README.rst"]},
     packages=[],
