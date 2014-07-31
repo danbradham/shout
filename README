@@ -10,7 +10,7 @@
 
 Shout is a single module providing simple messaging vocabulary for small applications. Shout is NOT a distributed messaging framework.
 
-.. code-block:: python
+::
 
     from shout import Message, hears, shout
 
