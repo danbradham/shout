@@ -17,7 +17,7 @@ with open("LICENSE") as f:
     license = f.read()
 
 setup(
-    name="shout",
+    name="pyshout",
     version=shout.__version__,
     description=shout.__description__,
     long_description=readme,
@@ -29,6 +29,7 @@ setup(
     zip_safe=False,
     package_data={"": ["LICENSE"]},
     packages=[],
+    py_modules=['shout'],
     install_requires = [],
     classifiers=(
         "Development Status :: 3 - Alpha",
