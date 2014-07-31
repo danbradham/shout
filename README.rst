@@ -16,7 +16,9 @@
 
 **Loud Python messaging.**
 
-Shout is a single module providing simple messaging vocabulary for small applications. Shout is NOT a distributed messaging framework.::
+Shout is a single module providing simple messaging vocabulary for small applications. Shout is NOT a distributed messaging framework.
+
+::
 
     from shout import Message, hears, shout
 
@@ -58,7 +60,9 @@ Why Shout
 Get Shout
 =========
 
-Shout is available through the python package index as **pyshout**.::
+Shout is available through the python package index as **pyshout**.
+
+::
 
     pip install pyshout
 
