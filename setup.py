@@ -25,7 +25,7 @@ setup(
     author_email=shout.__email__,
     url=shout.__url__,
     license=license,
-    package_data={"": ["LICENSE"]},
+    package_data={"": ["LICENSE", "README.rst"]},
     packages=[],
     py_modules=['shout'],
     classifiers=(
