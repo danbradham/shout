@@ -3,7 +3,6 @@
 
 .. image:: https://coveralls.io/repos/danbradham/shout/badge.png?branch=master
   :target: https://coveralls.io/r/danbradham/shout?branch=master
-
 ========
  Shout!
 ========
