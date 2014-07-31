@@ -1,7 +1,7 @@
 try:
-    from distutils.core import setup
-except ImportError:
     from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 import os
 import sys
 import shout
@@ -25,6 +25,7 @@ setup(
     author_email=shout.__email__,
     url=shout.__url__,
     license=license,
+    include_package_data= True,
     package_data={"": ["LICENSE", "README.rst"]},
     packages=[],
     py_modules=['shout'],
