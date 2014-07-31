@@ -38,7 +38,17 @@ class MetaMsg(type):
 MetaMetaMsg = MetaMsg(str("MetaMetaMsg"), (), {}) # 2n3 compatible metaclass
 
 class Message(MetaMetaMsg):
-    ''':class:`Message` instances store args and kwargs to shout to their listeners. Listeners are any function or class method decorated with :func:`hears`. When :meth:`shout` is called these args and kwargs are passed to all the listeners that hear the appropriate :class:`Message` objects in the appropriate *rooms*. *Rooms* are nothing more than strings used as keys in a :class:`Message` object's listeners dictionary. Return values of the listeners are collected in the :class:`Message` instance results list. If all listeners run successfully the :class:`Message` instance success attribute is set to True. If an :class:`Exception` is raised during a shout, the shout is stopped and the Exception is bound to the :class:`Message` instance exc attribute.
+    ''':class:`Message` instances store args and kwargs to shout to their
+    listeners. Listeners are any function or class method decorated with
+    :func:`hears`. When :meth:`shout` is called these args and kwargs are
+    passed to all the listeners that hear the appropriate :class:`Message`
+    objects in the appropriate *rooms*. *Rooms* are nothing more than strings
+    used as keys in a :class:`Message` object's listeners dictionary. Return
+    values of the listeners are collected in the :class:`Message` instance
+    results list. If all listeners run successfully the :class:`Message`
+    instance success attribute is set to True. If an :class:`Exception` is
+    raised during a shout, the shout is stopped and the Exception is bound to
+    the :class:`Message` instance exc attribute.
 
     :param args: Arguments to shout
     :param kwargs: Keyword Arguments to shout
@@ -57,7 +67,8 @@ class Message(MetaMetaMsg):
         self.success = False
 
     def shout(self):
-        '''Sends the :class:`Message` instance args and kwargs to the appropriate listeners.'''
+        '''Sends the :class:`Message` instance args and kwargs to the
+        appropriate listeners.'''
 
         listeners = self.listeners[self.room]
         if not listeners:
@@ -98,7 +109,9 @@ class Message(MetaMetaMsg):
 
 
 class HasEars(object):
-    '''A mixin class that automatically takes instance methods decorated with :func:`hears` and adds them as listeners to the specified :class:`Message` objects.
+    '''A mixin class that automatically takes instance methods decorated with
+    :func:`hears` and adds them as listeners to the specified :class:`Message`
+    objects.
     '''
 
     def __init__(self, *args, **kwargs):
@@ -128,7 +141,8 @@ def typecheck_args(args):
 
 
 def hears(*args, **kwargs):
-    '''A decorator that marks a function or :class:`HasEars` method to hear :class:`Message` objects inside specific rooms.
+    '''A decorator that marks a function or :class:`HasEars` method to hear
+    :class:`Message` objects inside specific rooms.
 
     :param args: A tuple of :class:`Message` objects to hear.
     :param rooms: A tuple of room names to listen to.'''
