@@ -22,9 +22,6 @@ setup(
     author_email=shout.__email__,
     url=shout.__url__,
     license="MIT",
-    include_package_data= True,
-    package_data={"": ["LICENSE", "README.rst"]},
-    packages=[],
     py_modules=['shout'],
     classifiers=(
         "Development Status :: 3 - Alpha",
