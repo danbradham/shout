@@ -39,7 +39,7 @@ class MetaMsg(type):
 MetaMetaMsg = MetaMsg(str("MetaMetaMsg"), (), {}) # 2n3 compatible metaclass
 
 class Message(MetaMetaMsg):
-    ''':class:`Message`s keep track of their listeners and the various rooms
+    ''':class:`Message` s keep track of their listeners and the various rooms
     they are listening to. Instances of :class:`Message` hold args and kwargs
     and when :meth:`shout` is called these are passed to all the appropraite
     listeners. All return values of listeners are collected in
