@@ -173,7 +173,7 @@ def hears(*args, **kwargs):
 def shout(msg_type, *args, **kwargs):
     '''A grammatically pleasant way to shout a :class:`Message`.
 
-    shout(Message, "Hello", room="A") <==> Message("Hello", room="A").shout()
+    shout(Message, "Hello", inside="A") == Message("Hello", inside="A").shout()
 
     :param msg_type: The type of :class:`Message` to shout.
     :param args: The args to pass to the :class:`Message`.
