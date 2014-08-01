@@ -19,6 +19,5 @@ Who is Listening?
 
 Does your class have ears?
 --------------------------
-Enables :func:`hears` decorator to be used on class methods.
 
-.. autoclass:: shout.has_ears
+.. autofunction:: shout.has_ears
