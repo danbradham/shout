@@ -89,7 +89,7 @@ class Test_Shout(object):
 
     def test_exc(self):
         msg_e = shout(MsgException)
-        assert isinstance(msg_e.exc, AttributeError)
+        assert isinstance(msg_e.exc[1], AttributeError)
 
 
     def test_results(self):

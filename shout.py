@@ -9,18 +9,28 @@ from __future__ import unicode_literals
 
 __author__ = "Dan Bradham"
 __email__ = "danieldbradham@gmail.com"
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __license__ = "MIT"
 __description__ = "Loud python messaging!"
 __url__ = "http://github.com/danbradham/shout"
-__all__ = ["Message", "has_ears", "hears", "shout"]
+__all__ = ["Message", "has_ears", "hears", "shout", "shout_logging"]
 
 
 import inspect
 import sys
 from collections import Sequence, defaultdict
 from itertools import chain
+import logging
 
+
+LFMT = '%(asctime)-15s [%(name)s %(levelname)s] %(message)s'
+DFMT = '%Y-%m-%d %H:%M:%S'
+FMT = logging.Formatter(LFMT, DFMT)
+shandler = logging.StreamHandler()
+shandler.setFormatter(FMT)
+shandler.setLevel(logging.CRITICAL)
+logger = logging.getLogger('Shout!')
+logger.addHandler(shandler)
 
 ROOM_DEFL = "void"
 
@@ -33,7 +43,7 @@ class MetaMsg(type):
 
         cls = super(MetaMsg, kls).__new__(kls, name, bases, members)
         cls.listeners = defaultdict(set)
-
+        logger.debug('New Message type: %s', name)
         return cls
 
 MetaMetaMsg = MetaMsg(str("MetaMetaMsg"), (), {}) # 2n3 compatible metaclass
@@ -64,10 +74,17 @@ class Message(MetaMetaMsg):
         self.response = []
         self.exc = None
         self.success = False
+        logger.debug("{0}".format(self))
+
+    def __repr__(self):
+        rpr = '{0}({1}, {2})'
+        return rpr.format(self.__class__.__name__, self.args, self.kwargs)
 
     def shout(self):
         '''Sends the instances args and kwargs to the
         appropriate listeners.'''
+        logger.debug("Shouting {0}!".format(self.__class__.__name__))
+
         rooms = (self.listeners[r] for r in self.rooms)
         listeners = chain.from_iterable(rooms)
 
@@ -76,26 +93,30 @@ class Message(MetaMetaMsg):
                 response = listener(*self.args, **self.kwargs)
                 self.response.append(response)
             except:
-                self.exc = sys.exc_info()[1]
+                self.exc = sys.exc_info()
+                logger.error('%s FAIL!', listener.__name__, exc_info=True)
                 return self
         if not self.response:
-            self.exc = UserWarning(
-                "Nobody is listening in room: {0}".format(self.rooms))
+            self.exc = UserWarning("No listeners in: {0}".format(self.rooms))
+            logger.warning(self.exc)
             return self
 
         self.success = True
+        logger.debug("SUCCESS!")
         return self
 
     @classmethod
     def add_listener(cls, fn):
         for room in fn.rooms:
             cls.listeners[room].add(fn)
+        logger.debug("%s hears %s in %s", fn.__name__, cls.__name__, fn.rooms)
         return cls
 
     @classmethod
     def rem_listener(cls, fn):
         for room in cls.listeners.values():
             room.discard(fn)
+        logger.debug("%s no longer hears %s", fn.__name__, cls.__name__)
         return cls
 
     @staticmethod
@@ -123,6 +144,7 @@ def has_ears(cls):
                 for msg_type in member.msg_types:
                     msg_type.add_listener(method)
         cls_init(self, *args, **kwargs)
+        logger.debug('%s has ears!', cls.__name__)
 
     cls.__init__ = __init__
     return cls
@@ -180,3 +202,15 @@ def shout(msg_type, *args, **kwargs):
     :param kwargs: The kwargs to pass to the :class:`Message`.
     :param inside: The rooms to shout inside.'''
     return msg_type(*args, **kwargs).shout()
+
+
+def shout_logging(debug, stream=True, filename=None):
+    if debug:
+        logger.setLevel(logging.DEBUG)
+    if filename:
+        fhandler = logging.FileHandler(filename)
+        fhandler.setFormatter(FMT)
+        fhandler.setLevel(logging.DEBUG)
+        logger.addHandler(fhandler)
+    if not stream:
+        logger.removeHandler(shandler)
