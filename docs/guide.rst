@@ -1,10 +1,12 @@
 .. _guide:
 .. currentmodule:: shout
 
+Guide
+=====
 This section provides everything you need to know about using Shout.
 
-Messages
-========
+Creating a Message
+------------------
 Start by importing the essentials from shout.
 
 ::
@@ -21,7 +23,7 @@ Now we can create a new type of :class:`Message`.
 Our :class:`Message` type will allow us to :func:`shout` args and kwargs around our application. But, before we can do that...
 
 Who is Listening?
-=================
+-----------------
 Let's make a function that can actually hear us :func:`shout` our :class:`Message` s.
 
 ::
@@ -55,7 +57,7 @@ any shouted :class:`Message` s. It's **super** simple to give a class ears, just
             return upper(msg)
 
 Shout at the top of your lungs!
-===============================
+-------------------------------
 Time to shout some messages!
 
 ::
@@ -95,7 +97,7 @@ Cool, but, judging from the response, none of our methods in :class:`Volumes` he
 There we go! It's important to note that while we only passed one argument in our shouts, any arg, kwarg signature is supported. :class:`Message` signatures are really set by their listeners. So, if you have multiple listeners for the same type of :class:`Message`, ensure that they all take the same parameters.
 
 Debugging
-=========
+---------
 Shout has extensive logging which is turned off by default.
 
 ::
