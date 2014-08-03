@@ -69,19 +69,11 @@ Shout is available through the python package index as **pyshout**.
 * Note that only the python package name is pyshout, the module it installs is simply **shout**.
 
 
-Guide
+Index
 =====
 
 .. toctree::
     :maxdepth: 2
 
     guide
-
-
-API Documentation
-=================
-
-.. toctree::
-   :maxdepth: 2
-
-   api
+    api
