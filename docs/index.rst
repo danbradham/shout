@@ -72,7 +72,7 @@ Shout is available through the python package index as **pyshout**.
 Guide
 =====
 
-.. toctree:
+.. toctree::
     :maxdepth: 2
 
     guide
