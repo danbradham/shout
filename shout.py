@@ -204,10 +204,10 @@ def shout(msg_type, *args, **kwargs):
     return msg_type(*args, **kwargs).shout()
 
 
-def shout_logging(debug, stream=True, filename=None):
+def shout_logging(debug=True, stream=True, filename=None):
     '''Sets up shouts logger.
 
-    :param debug:
+    :param debug: Sets shouts logging level to DEBUG.
     :param stream: Sends log messages to console
     :param filename: Sends log messages to specified file.'''
     if debug:

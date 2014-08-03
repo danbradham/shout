@@ -11,7 +11,7 @@ Start by importing the essentials from shout.
 
 ::
 
-    >>> from shout import Message, has_ears, hears, shout
+    from shout import Message, has_ears, hears, shout
 
 Now we can create a new type of :class:`Message`.
 
