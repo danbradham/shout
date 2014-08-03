@@ -167,10 +167,10 @@ def typecheck_args(args):
 
 def hears(*args, **kwargs):
     '''Decorates functions and methods, adding them as listeners to the
-    specified :class:`Message`s.
+    specified :class:`Message` s.
 
-    :param args: A tuple of :class:`Message` objects to hear.
-    :param inside: A tuple of rooms to hear.'''
+    :param args: :class:`Message` s this function will hear.
+    :param inside: Tuple of rooms this function will hear.'''
     def wrapper(fn):
 
         typecheck_args(args) # Make sure all our args are Message Subclasses
@@ -205,6 +205,11 @@ def shout(msg_type, *args, **kwargs):
 
 
 def shout_logging(debug, stream=True, filename=None):
+    '''Sets up shouts logger.
+
+    :param debug:
+    :param stream: Sends log messages to console
+    :param filename: Sends log messages to specified file.'''
     if debug:
         logger.setLevel(logging.DEBUG)
     if filename:

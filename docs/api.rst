@@ -1,23 +1,28 @@
 .. _api:
 .. currentmodule:: shout
 
-Messages
-========
+Message
+=======
 
 .. autoclass:: shout.Message
     :members:
 
-Shout at the top of your lungs!
-===============================
-
-.. autofunction:: shout.shout
-
-Who is Listening?
-=================
+hears
+=====
 
 .. autofunction:: shout.hears
 
-Does your class have ears?
---------------------------
+has_ears
+========
 
 .. autofunction:: shout.has_ears
+
+shout
+=====
+
+.. autofunction:: shout.shout
+
+shout_logging
+=============
+
+.. autofunction:: shout.shout_logging
