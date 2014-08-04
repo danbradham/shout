@@ -55,16 +55,20 @@ any shouted :class:`Message` s. It's **super** simple to give a class ears, just
         @hears(MyMessage)
         def hi(msg):
             return upper(msg)
+            
+    v = Volume()
+    
+Once we've given our class ears, the last thing we have to do is create an instance of it. On instantiation the bound methods are added as listeners to the appropriate :class:`Message` s.
 
 Shout at the top of your lungs!
 -------------------------------
-Time to shout some messages!
+We've got our :class:`Message` and a bunch of listeners, now we can shout all we want to.
 
 ::
 
     m = shout(MyMessage, "hello there", inside="A")
 
-Okay, now we've shouted a :class:`Message` and we've got a :class:`Message` instance bound to **m**. :class:`Message` instances have a bunch of useful attributes.
+Now we've shouted a :class:`Message` and we've got a :class:`Message` instance bound to **m**. :class:`Message` instances have a bunch of useful attributes.
 
 ::
 
@@ -78,7 +82,7 @@ Okay, now we've shouted a :class:`Message` and we've got a :class:`Message` inst
     # success: True
     # exception: None
 
-Cool, but, judging from the response, none of our methods in :class:`Volumes` heard us shout. That's because we shouted inside room "A". Let's see what happens if we shout again but this time, not explicitly into a room.
+Cool, but, judging from the response, none of our methods in :class:`Volumes` heard us shout. That's because we shouted inside room "A". Let's see what happens if we shout again but this time, not explicitly passing a room to the **inside** keyword.
 
 ::
 
@@ -94,7 +98,7 @@ Cool, but, judging from the response, none of our methods in :class:`Volumes` he
     # success: True
     # exception: None
 
-There we go! It's important to note that while we only passed one argument in our shouts, any arg, kwarg signature is supported. :class:`Message` signatures are really set by their listeners. So, if you have multiple listeners for the same type of :class:`Message`, ensure that they all take the same parameters.
+There we go! This time we've shouted inside the default room "void", reaching all of our :class:`Volume` instance's listeners. It's important to note that while we only passed one argument in our shouts, any arg, kwarg signature is supported. :class:`Message` signatures should be set by their listeners. So, if you have multiple listeners for the same type of :class:`Message`, ensure that they all take the same parameters.
 
 Debugging
 ---------
