@@ -1,6 +1,4 @@
-import os
-from shout import (Message, has_ears, hears, shout,
-                   typecheck_args, shout_logging)
+from shout import (Message, has_ears, hears, shout, typecheck_args)
 from nose.tools import *
 
 
@@ -141,7 +139,3 @@ class Test_Shout(object):
     def test_typecheck_not_seq(self):
         args = 1
         typecheck_args(args)
-
-    def test_file_logger(self):
-        shout_logging(True, stream=False, filename="test.log")
-        assert os.path.exists("test.log")
