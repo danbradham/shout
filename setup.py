@@ -14,7 +14,7 @@ with open("README.rst") as f:
     readme = f.read()
 
 setup(
-    name="pyshout",
+    name=shout.__title__,
     version=shout.__version__,
     description=shout.__description__,
     long_description=readme,

@@ -34,9 +34,10 @@ Shout is a single module providing simple messaging vocabulary for small applica
 from __future__ import unicode_literals
 
 
+__title__ = "pyshout"
 __author__ = "Dan Bradham"
 __email__ = "danieldbradham@gmail.com"
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 __license__ = "MIT"
 __description__ = "Loud python messaging!"
 __url__ = "http://github.com/danbradham/shout"
@@ -97,11 +98,13 @@ class Message(MetaMetaMsg):
                 self.rooms = (self.rooms, )
         except KeyError:
             self.rooms = (ROOM_DEFL,)
+
         self.args = args
         self.kwargs = kwargs
         self.response = []
         self.exc = None
         self.success = False
+
         logger.debug("{0}".format(self))
 
     def __repr__(self):

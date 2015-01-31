@@ -32,7 +32,7 @@ Let's make a function that can actually hear us :func:`shout` our :class:`Messag
     def maximum(msg):
         return upper(msg) + "!!"
 
-:func:`max_volume` will hear all :class:`MyMessage` shouts inside room "A". In this case only one type of :class:`Message` will be heard, but multiple :class:`Message` s can be passed as args to :func:`hears`. Additionally multiple rooms can be passed as a tuple to the inside keyword argument. If you don't pass any room names to inside, your function will listen in the default room, "void".
+:func:`maximum` will hear all :class:`MyMessage` shouts inside room "A". In this case only one type of :class:`Message` will be heard, but multiple :class:`Message` s can be passed as args to :func:`hears`. Additionally multiple rooms can be passed as a tuple to the inside keyword argument. If you don't pass any room names to inside, your function will listen in the default room, "void".
 
 Does your class have ears?
 --------------------------
@@ -49,15 +49,15 @@ any shouted :class:`Message` s. It's **super** simple to give a class ears, just
             return lower(msg)
 
         @hears(MyMessage)
-        def med(msg):
+        def medium(msg):
             return msg.title()
 
         @hears(MyMessage)
-        def hi(msg):
+        def high(msg):
             return upper(msg)
-            
-    v = Volume()
-    
+
+    v = Volumes()
+
 Once we've given our class ears, the last thing we have to do is create an instance of it. On instantiation the bound methods are added as listeners to the appropriate :class:`Message` s.
 
 Shout at the top of your lungs!
@@ -75,7 +75,7 @@ Now we've shouted a :class:`Message` and we've got a :class:`Message` instance b
     print "args, kwargs: ", m.args, m.kwargs
     print "response: ", m.response
     print "success: ", m.success
-    print "excception: ", m.exc
+    print "exception: ", m.exc
 
     # args, kwargs: ("hello there", ), {}
     # response: ["HELLO THERE!!"]
@@ -91,14 +91,14 @@ Cool, but, judging from the response, none of our methods in :class:`Volumes` he
     print "args, kwargs: ", m.args, m.kwargs
     print "response: ", m.response
     print "success: ", m.success
-    print "excception: ", m.exc
+    print "exception: ", m.exc
 
     # args, kwargs: ("hello again", ), {}
     # response: ["hello again", "Hello Again", "HELLO AGAIN"]
     # success: True
     # exception: None
 
-There we go! This time we've shouted inside the default room "void", reaching all of our :class:`Volume` instance's listeners. It's important to note that while we only passed one argument in our shouts, any arg, kwarg signature is supported. :class:`Message` signatures should be set by their listeners. So, if you have multiple listeners for the same type of :class:`Message`, ensure that they all take the same parameters.
+There we go! This time we've shouted inside the default room "void", reaching all of our :class:`Volumes` instance's listeners. It's important to note that while we only passed one argument in our shouts, any arg, kwarg signature is supported. :class:`Message` signatures should be set by their listeners. So, if you have multiple listeners for the same type of :class:`Message`, ensure that they all take the same parameters.
 
 Debugging
 ---------
@@ -106,11 +106,8 @@ Shout has extensive logging which is turned off by default.
 
 ::
 
-    from shout import shout_logging
-    shout_logging(debug=True)
+    import logging
+    shout_logger = logging.getLogger('Shout!')
+    shout_logger.setLevel(logging.DEBUG)
 
 This will set Shouts logger level to logging.DEBUG. Printing out a ton of useful messages! You can also log to a file.
-
-::
-
-    shout_logging(debug=True, filename="shout.log")
