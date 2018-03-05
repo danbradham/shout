@@ -6,7 +6,7 @@
   :target: https://coveralls.io/r/danbradham/shout?branch=master
   :alt: Coverage Status
 
-.. image:: https://pypip.in/version/pyshout/badge.svg
+.. image:: https://img.shields.io/pypi/v/pyshout.svg
   :target: https://pypi.python.org/pypi/pyshout/
   :alt: Latest Version
 
